@@ -13,6 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::group(['namespace'=>'App\Http\Controllers'],function(){
+    Route::get('/','HomeController@index');
+
+        Route::group(['middleware'=>['guest']],function(){
+            //register route
+            Route::get('/register','RegisterController@show')->name('register.show');
+            Route::post('/register','RegisterController@register')->name('register.registration');
+            Route::get('login','LoginController@show')->name('login.show');  
+            Route::post('login','LoginController@login')->name('login.loginUser');  
+
+        });
+            
+            //
+            Route::group(['middleware'=>['auth']],function(){
+             Route::get('/logout','LogoutController@logout')->name('logout');
+             Route::resource('/branch',BranchController::class);
+             Route::resource('/employee',EmployeeController::class);
+            //  Route::resource('/product',ProductController::class);
+            // Route::resource('/poroduct',PoroductController::class);
+
+        });
 });

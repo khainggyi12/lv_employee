@@ -20,8 +20,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('branch_id')->nullable();
-            $table->enum('role', ['Admin', 'Manager','Branch Manager', 'Employee']);
+            $table->enum('role',['Admin','Manager','Branch Manager','Employee']);
             $table->rememberToken();
+
             $table->timestamps();
         });
     }
